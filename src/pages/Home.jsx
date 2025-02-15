@@ -10,7 +10,7 @@ function Home() {
         axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=gecko_desc&per_page=10&page=10&sparkline=false&price_change_percentage=24h`)
             .then(response => {
                 if (response.status == 200) {
-                    console.log(response.data);
+                    // console.log(response.data);
                     setCryptos(response.data)
                 }
             })

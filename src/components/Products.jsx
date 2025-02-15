@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
-
-import Pagination from '@mui/material/Pagination';
-
-
-import eye from "../assets/img/Eye.svg"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
+import Pagination from '@mui/material/Pagination';
+import eye from "../assets/img/Eye.svg"
+
+import useWatchList from '../store/useWatchList';
+
 function Products() {
+    const { watchList, addItem, removeItem, clearAll } = useWatchList();
+
     const [cryptos, setCryptos] = useState([]);
 
     const [page, setPage] = useState(1);
@@ -28,8 +30,10 @@ function Products() {
     };
 
     const navigate = useNavigate();
-    const redirectDetails = (id) => {
-        navigate(`/${id}`)
+    const redirectDetails = (item) => {
+        navigate(`/${item.id}`)
+
+        addItem(item);
     }
 
     return (
@@ -56,7 +60,7 @@ function Products() {
                     {
                         cryptos.length > 0 && cryptos.map((item, index) => {
                             return (
-                                <tr onClick={() => redirectDetails(item.id)} key={index} className='cursor-pointer gtext-end w-full border-b'>
+                                <tr onClick={() => redirectDetails(item)} key={index} className='cursor-pointer gtext-end w-full border-b'>
                                     <td className='flex pl-2 py-4 justify-start items-center gap-3'>
                                         <img width={50} src={item.image} alt="" />
                                         <div className='flex py-4 flex-col items-start justify-center gap-2'>
