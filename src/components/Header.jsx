@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 import close from "../assets/icons/close.svg"
-import { Link } from 'react-router-dom';
-import useWatchList from '../store/useWatchList';
 import WatchLists from './WatchLists';
 
 function Header() {
@@ -36,7 +35,7 @@ function Header() {
                     </span>
                     <h2 className='font-medium text-3xl text-center uppercase text-white'>watchlist</h2>
                     <div>
-                        <WatchLists />
+                        <WatchLists /> 
                     </div>
                 </div>
             </div>

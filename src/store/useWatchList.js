@@ -5,7 +5,12 @@ const createWatchList = (set) => {
         watchList: [],
         addItem: (newItem) => {
             set(function (state) {
-                let copied = [...state.watchList, newItem];
+                let copied = [...state.watchList];
+
+                if (!copied.includes(newItem)) {
+                    copied.push(newItem);
+                }
+
                 return { watchList: copied };
             })
         },
@@ -15,9 +20,6 @@ const createWatchList = (set) => {
                 let newCopied = copied.map((_, index) => index !== id);
                 return { watchList: newCopied }
             })
-        },
-        clearAll: () => {
-            set({ watchList: [] })
         }
     }
 }

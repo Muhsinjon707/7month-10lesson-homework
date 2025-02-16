@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 import Pagination from '@mui/material/Pagination';
 import eye from "../assets/img/Eye.svg"
+import greenEye from "../assets/img/green-eye.svg"
 
 import useWatchList from '../store/useWatchList';
 
 function Products() {
-    const { watchList, addItem, removeItem, clearAll } = useWatchList();
+    const { watchList, addItem } = useWatchList();
 
     const [cryptos, setCryptos] = useState([]);
 
@@ -18,7 +19,7 @@ function Products() {
         axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=gecko_desc&per_page=10&page=${page}&sparkline=false&price_change_percentage=24h`)
             .then(response => {
                 if (response.status == 200) {
-                    // console.log(response.data);
+                    console.log("Data: ", response.data);
                     setCryptos(response.data)
                 }
             })
@@ -37,44 +38,52 @@ function Products() {
     }
 
     return (
-        <div className='container my-4 mx-auto flex flex-col items-center justify-center'>
+        <div className='container my-4 mx-auto px-4 flex flex-col items-center justify-center'>
             <h2 className='text-white font-normal text-4xl text-center'>Cryptocurrency Prices by Market Cap</h2>
             <input
                 type="search"
                 className='
-                    font-normal my-4 h-14 text-lg text-start white opacity-[.7] w-full
-                    border border-gray-300 py-6 px-4 rounded-sm
+                    font-normal my-4 h-14 text-lg text-start opacity-[.7] w-full
+                    border border-gray-300 py-6 px-4 rounded-sm mx-2
                 '
                 placeholder='Search For a Crypto Currency..'
             />
-            <table className='table w-full rounded-sm text-start text-white'>
+            <table className='table w-full text-start text-white'>
                 <thead className='w-full bg-[#87CEEB]'>
                     <tr className='text-end'>
-                        <th className='py-5 px-4 w-[390px] text-start'>Coin</th>
-                        <th className='py-5 px-4'>Price</th>
-                        <th className='py-5 px-4'>24th Change</th>
+                        <th className='py-5 pl-4 w-[390px] text-start'>Coin</th>
+                        <th className='py-5 px-1'>Price</th>
+                        <th className='py-5 px-1'>24th Change</th>
                         <th className='py-5 px-4'>Market Cap</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className='w-full'>
                     {
                         cryptos.length > 0 && cryptos.map((item, index) => {
                             return (
-                                <tr onClick={() => redirectDetails(item)} key={index} className='cursor-pointer gtext-end w-full border-b'>
-                                    <td className='flex pl-2 py-4 justify-start items-center gap-3'>
-                                        <img width={50} src={item.image} alt="" />
+                                <tr onClick={() => redirectDetails(item)} key={index}
+                                    className='cursor-pointer text-end w-full border-b'>
+                                    <td className='pl-4 py-4 flex items-center justify-start gap-5'>
+                                        <div>
+                                            <img width={50} src={item.image} alt="" />
+                                        </div>
                                         <div className='flex py-4 flex-col items-start justify-center gap-2'>
                                             <h4 className='uppercase'>{item.symbol}</h4>
                                             <p className='text-sm text-gray-400'>{item.name}</p>
                                         </div>
                                     </td>
-                                    <td className='py-4'>₹ {item.current_price}</td>
-                                    <td className='py-4 pr-5'>
+                                    <td>₹ {item.current_price}</td>
+                                    <td className='pr-2'>
                                         <div className='flex justify-end gap-3'>
-                                            <img width={26} src={eye} alt="" /> +{item.price_change_percentage_24h.toFixed(2)}%
+                                            <img width={26} src={`${watchList.includes(item) ? greenEye : eye}`} alt="" />
+                                            {
+                                                item.price_change_percentage_24h.toFixed(2) > 0 ?
+                                                    <p className='text-green-500'>+${item.price_change_percentage_24h.toFixed(2)}%</p> :
+                                                    <p className='text-red-500'>${item.price_change_percentage_24h.toFixed(2)}%</p>
+                                            }
                                         </div>
                                     </td>
-                                    <td className='pr-2'>₹ {item.market_cap}M</td>
+                                    <td>₹ {item.market_cap}M</td>
                                 </tr>
                             );
                         })

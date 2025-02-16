@@ -2,7 +2,7 @@ import React from 'react'
 import useWatchList from '../store/useWatchList';
 
 function WatchLists() {
-    const { watchList, addItem, removeItem, clearAll } = useWatchList();
+    const { watchList, removeItem } = useWatchList();
 
     console.log("Watch List: ", watchList);
 
