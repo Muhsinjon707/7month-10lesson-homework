@@ -28,7 +28,7 @@ function Home() {
                             {
                                 cryptos.length > 0 && cryptos.map((item, index) => {
                                     return (
-                                        <li key={index} style={{ '--index': index + 1 }}>
+                                        <li className='flex flex-col items-center justify-center' key={index} style={{ '--index': index + 1 }}>
                                             <img width={75} src={item.image} alt="" />
                                             <p className='mt-2'>{item.symbol} <span className='text-green-500'>+{item.market_cap_change_percentage_24h.toFixed(2)}%</span></p>
                                             <h4>₹ {item.current_price.toFixed(2)}</h4>
