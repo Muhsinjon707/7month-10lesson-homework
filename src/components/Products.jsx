@@ -7,12 +7,15 @@ import eye from "../assets/img/Eye.svg"
 import greenEye from "../assets/img/green-eye.svg"
 
 import useWatchList from '../store/useWatchList';
+import debounce from 'lodash.debounce';
 
 function Products() {
     const { watchList, addItem } = useWatchList();
 
     const [cryptos, setCryptos] = useState([]);
     const [filteredCryptos, setFilteredCryptos] = useState([])
+
+    const [totalPages, setTotalPages] = useState(0);
     const [page, setPage] = useState(1);
 
     const [search, setSearch] = useState("");
@@ -24,10 +27,15 @@ function Products() {
                     console.log("Data: ", response.data);
                     setCryptos(response.data);
                     setFilteredCryptos(response.data);
+                    setTotalPages(Math.ceil(response.data.length / 10));
                 }
             })
             .catch(error => console.log(error))
     }, [page])
+
+    const handleSearch = debounce(value => {
+        setSearch(value);
+    }, 500)
 
     useEffect(() => {
         if (!search) setFilteredCryptos(cryptos);
@@ -62,8 +70,8 @@ function Products() {
                     font-normal my-4 h-14 text-lg text-start opacity-[.7] w-full
                     border border-gray-300 py-6 px-4 rounded-sm mx-2
                 '
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                // value={search}
+                onChange={(e) => handleSearch(e.target.value)}
                 placeholder='Search For a Crypto Currency..'
             />
             <table className='table w-full text-start text-white'>
@@ -77,7 +85,7 @@ function Products() {
                 </thead>
                 <tbody className='w-full'>
                     {
-                        filteredCryptos.length > 0 && filteredCryptos.map((item, index) => {
+                        filteredCryptos.length > 0 ? (filteredCryptos.map((item, index) => {
                             return (
                                 <tr onClick={() => redirectDetails(item)} key={index}
                                     className='cursor-pointer text-end w-full border-b'>
@@ -104,13 +112,15 @@ function Products() {
                                     <td>₹ {item.market_cap}M</td>
                                 </tr>
                             );
-                        })
+                        })) : <tr>
+                            <td colSpan={4} className='text-center py-4'>No results found</td>
+                        </tr>
                     }
                 </tbody>
             </table>
             <div className='w-full my-5 text-[#87CEEB] flex justify-center'>
                 <Pagination
-                    count={10}
+                    count={totalPages}
                     page={page}
                     onChange={handlePage}
                     sx={{
