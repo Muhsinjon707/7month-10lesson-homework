@@ -18,7 +18,6 @@ function Details() {
 
     if (!newCrypto) return <p>Loading...</p>;
 
-
     return (
         <div className='w-screen absolute top-15 left-0 bg-[#14161A] text-white p-4 flex '>
             <div className='w-3/12 min-h-[550px] text-center border-r-1 flex flex-col items-start justify-center gap-4'>
