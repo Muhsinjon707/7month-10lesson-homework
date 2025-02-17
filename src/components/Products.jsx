@@ -101,12 +101,14 @@ function Products() {
                                     <td>₹ {item.current_price}</td>
                                     <td className='pr-2'>
                                         <div className='flex justify-end gap-3'>
-                                            <img width={26} src={`${watchList.includes(item) ? greenEye : eye}`} alt="" />
-                                            {
-                                                item.price_change_percentage_24h.toFixed(2) > 0 ?
-                                                    <p className='text-green-500'>+${item.price_change_percentage_24h.toFixed(2)}%</p> :
-                                                    <p className='text-red-500'>${item.price_change_percentage_24h.toFixed(2)}%</p>
-                                            }
+                                            <div className=' w-[120px] flex justify-between'>
+                                                <img width={26} src={`${watchList.includes(item) ? greenEye : eye}`} alt="" />
+                                                {
+                                                    item.price_change_percentage_24h.toFixed(2) > 0 ?
+                                                        <p className='text-green-500'>+${item.price_change_percentage_24h.toFixed(2)}%</p> :
+                                                        <p className='text-red-500'>${item.price_change_percentage_24h.toFixed(2)}%</p>
+                                                }
+                                            </div>
                                         </div>
                                     </td>
                                     <td>₹ {item.market_cap}M</td>

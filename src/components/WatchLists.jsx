@@ -19,6 +19,14 @@ function WatchLists() {
                     );
                 })
             }
+
+            {
+                watchList.length === 0 && <p className='
+                    bg-amber-900 py-4 px-5 text-white text-xl rounded-full mt-[50%]
+                '>
+                    No current watched items are available...
+                </p>
+            }
         </div>
     )
 }

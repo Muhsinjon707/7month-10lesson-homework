@@ -1,22 +1,61 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
+
+import { Line } from 'react-chartjs-2';
+import { Chart, LineController, LineElement, PointElement, CategoryScale, LinearScale } from 'chart.js'
+
+Chart.register(LineController, LineElement, PointElement, CategoryScale, LinearScale);
 
 function Details() {
     const { crypto } = useParams();
+
     const [newCrypto, setCrypto] = useState(null);
+
+    const [customData, setCustomData] = useState([]);
 
     useEffect(() => {
         axios.get(`https://api.coingecko.com/api/v3/coins/${crypto}`)
             .then(response => {
                 if (response.status === 200) {
                     setCrypto(response.data);
+                    // console.log(21, response);
                 }
             })
             .catch(error => console.log(error));
     }, [crypto]);
 
     if (!newCrypto) return <p>Loading...</p>;
+
+    const data = {
+        labels: ['9:15 AM', '9:45 AM', '10:15 AM', '10:45 AM', '11:15 AM', '11:45 AM', '12:15 AM', '12:45 AM', '1:15 AM', '1:45 AM', '2:15 AM', '2:45 AM', '3:15 AM', '3:45 AM', '4:15 AM', '4:45 AM', '6:35 AM', '7:15 AM', '7:45 AM', '8:15 AM', '8:45 AM', '9:15 PM', '9:45 PM', '10:15 PM', '10:45 PM', '11:15 PM', '11:45 PM', '12:15 AM', '12:45 AM', '1:15 AM', '1:45 AM', '2:15 AM', '2:45 AM', '3:15 AM', '3:45 AM', '4:15 AM', '4:45 AM', '6:35 AM', '7:15 AM', '7:45 AM', '8:15 AM'], // Your X-axis labels
+        datasets: [
+            {
+                label: 'Price (Past 1 Day)', // Your data label
+                data: customData,
+                fill: false, // Fill the area under the line
+                borderColor: 'blue', // Line color
+                tension: 0.4, // Adjust line smoothness (0 for straight lines)
+            },
+        ],
+    };
+
+    const options = {
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Time', // X-axis label
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Price (INR)', // Y-axis label
+                },
+            },
+        },
+    };
 
     return (
         <div className='w-screen absolute top-15 left-0 bg-[#14161A] text-white p-4 flex '>
@@ -44,7 +83,8 @@ function Details() {
                 </div>
             </div>
             <div className='w-9/12 mt-8 text-center'>
-                Chart (To be implemented)
+                {/* Chart (To be implemented) */}
+                <Line data={data} options={options} />
             </div>
         </div>
     );

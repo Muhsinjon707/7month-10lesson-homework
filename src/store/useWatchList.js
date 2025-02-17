@@ -17,9 +17,12 @@ const createWatchList = (set) => {
         removeItem: (id) => {
             set(function (state) {
                 let copied = [...state.watchList];
-                let newCopied = copied.map((_, index) => index !== id);
+                let newCopied = copied.filter((item) => item.id !== id);
                 return { watchList: newCopied }
             })
+        },
+        clearAll: () => {
+            set({watchList: []})
         }
     }
 }
