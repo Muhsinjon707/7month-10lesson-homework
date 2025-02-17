@@ -76,10 +76,10 @@ function Products() {
             />
             <table className='table w-full text-start text-white'>
                 <thead className='w-full bg-[#87CEEB]'>
-                    <tr className='text-end'>
+                    <tr className='text-end text-black font-bold text-[16px] tracking-[0.15px]'>
                         <th className='py-5 pl-4 w-[390px] text-start'>Coin</th>
                         <th className='py-5 px-1'>Price</th>
-                        <th className='py-5 px-1'>24th Change</th>
+                        <th className='py-5 px-1'>24h Change</th>
                         <th className='py-5 px-4'>Market Cap</th>
                     </tr>
                 </thead>
@@ -88,7 +88,7 @@ function Products() {
                         filteredCryptos.length > 0 ? (filteredCryptos.map((item, index) => {
                             return (
                                 <tr onClick={() => redirectDetails(item)} key={index}
-                                    className='cursor-pointer text-end w-full border-b'>
+                                    className='cursor-pointer text-end w-full border-b text-sm font-normal'>
                                     <td className='pl-4 py-4 flex items-center justify-start gap-5'>
                                         <div>
                                             <img width={50} src={item.image} alt="" />
@@ -101,12 +101,12 @@ function Products() {
                                     <td>₹ {item.current_price}</td>
                                     <td className='pr-2'>
                                         <div className='flex justify-end gap-3'>
-                                            <div className=' w-[120px] flex justify-between'>
+                                            <div className=' w-[90px] flex justify-between'>
                                                 <img width={26} src={`${watchList.includes(item) ? greenEye : eye}`} alt="" />
                                                 {
                                                     item.price_change_percentage_24h.toFixed(2) > 0 ?
-                                                        <p className='text-green-500'>+${item.price_change_percentage_24h.toFixed(2)}%</p> :
-                                                        <p className='text-red-500'>${item.price_change_percentage_24h.toFixed(2)}%</p>
+                                                        <p className='text-green-500'>+{item.price_change_percentage_24h.toFixed(2)}%</p> :
+                                                        <p className='text-red-500'>{item.price_change_percentage_24h.toFixed(2)}%</p>
                                                 }
                                             </div>
                                         </div>

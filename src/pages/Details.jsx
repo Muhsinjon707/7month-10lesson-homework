@@ -28,14 +28,14 @@ function Details() {
     if (!newCrypto) return <p>Loading...</p>;
 
     const data = {
-        labels: ['9:15 AM', '9:45 AM', '10:15 AM', '10:45 AM', '11:15 AM', '11:45 AM', '12:15 AM', '12:45 AM', '1:15 AM', '1:45 AM', '2:15 AM', '2:45 AM', '3:15 AM', '3:45 AM', '4:15 AM', '4:45 AM', '6:35 AM', '7:15 AM', '7:45 AM', '8:15 AM', '8:45 AM', '9:15 PM', '9:45 PM', '10:15 PM', '10:45 PM', '11:15 PM', '11:45 PM', '12:15 AM', '12:45 AM', '1:15 AM', '1:45 AM', '2:15 AM', '2:45 AM', '3:15 AM', '3:45 AM', '4:15 AM', '4:45 AM', '6:35 AM', '7:15 AM', '7:45 AM', '8:15 AM'], // Your X-axis labels
+        labels: ['9:15 AM', '9:45 AM', '10:15 AM', '10:45 AM', '11:15 AM', '11:45 AM', '12:15 AM', '12:45 AM', '1:15 AM', '1:45 AM', '2:15 AM', '2:45 AM', '3:15 AM', '3:45 AM', '4:15 AM', '4:45 AM', '6:35 AM', '7:15 AM', '7:45 AM', '8:15 AM', '8:45 AM', '9:15 PM', '9:45 PM', '10:15 PM', '10:45 PM', '11:15 PM', '11:45 PM', '12:15 AM', '12:45 AM', '1:15 AM', '1:45 AM', '2:15 AM', '2:45 AM', '3:15 AM', '3:45 AM', '4:15 AM', '4:45 AM', '6:35 AM', '7:15 AM', '7:45 AM', '8:15 AM'],
         datasets: [
             {
-                label: 'Price (Past 1 Day)', // Your data label
+                label: 'Price (Past 1 Day)',
                 data: customData,
-                fill: false, // Fill the area under the line
-                borderColor: 'blue', // Line color
-                tension: 0.4, // Adjust line smoothness (0 for straight lines)
+                fill: false,
+                borderColor: 'blue',
+                tension: 0.4
             },
         ],
     };
@@ -45,13 +45,13 @@ function Details() {
             x: {
                 title: {
                     display: true,
-                    text: 'Time', // X-axis label
+                    text: 'Time'
                 },
             },
             y: {
                 title: {
                     display: true,
-                    text: 'Price (INR)', // Y-axis label
+                    text: 'Price (INR)'
                 },
             },
         },
